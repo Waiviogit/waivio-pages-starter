@@ -1,13 +1,15 @@
 # Waivio Pages Starter
 
-Static [Next.js](https://nextjs.org/) starter kit for building GitHub Pages sites on top of **query-api**, with **Hive Keychain** for blockchain broadcasts — no auth-api, no server.
+Static [Next.js](https://nextjs.org/) starter kit for building GitHub Pages sites on top of **[query-api](https://github.com/Waiviogit/open-data-layer)** ([open-data-layer](https://github.com/Waiviogit/open-data-layer)), with **Hive Keychain** for blockchain broadcasts — no auth-api, no server.
+
+Backend monorepo: [github.com/Waiviogit/open-data-layer](https://github.com/Waiviogit/open-data-layer) — NestJS apps (`query-api`, `auth-api`, `chain-indexer`, …), shared libs (`hive-broadcast`, …), and reference web UI (`apps/web`). This starter is a **standalone fork-friendly template**; run query-api from that repo (or your own deployment) and point `NEXT_PUBLIC_QUERY_API_URL` at it.
 
 ## Features
 
 - `output: "export"` — deployable to GitHub Pages (`out/`)
 - Typed **query-api** browser client (Zod-validated responses)
 - **Hive Keychain** connect + broadcast (vote, transfer, ODL `custom_json`)
-- Curated **hive-broadcast** operation builders (ported from opden-data-layer)
+- Curated **hive-broadcast** operation builders (ported from [open-data-layer](https://github.com/Waiviogit/open-data-layer))
 - Clean-arch module layout, `Result<T,E>`, `useInfiniteScroll`, client i18n (en-US + ar-SA)
 
 ## What is intentionally excluded
@@ -51,7 +53,7 @@ Browser calls need query-api CORS to allow:
 - `Accept-Language`, `X-Locale`, `Authorization`, `X-Governance-Object-Id`
 - **`X-Viewer`** — required for personalized reads (`is_following`, etc.)
 
-The opden-data-layer query-api includes `X-Viewer` in `allowedHeaders`. If you run your own query-api, add it there.
+The [open-data-layer](https://github.com/Waiviogit/open-data-layer) `query-api` includes `X-Viewer` in `allowedHeaders`. If you run your own query-api, add it there.
 
 ## Project structure
 
@@ -70,7 +72,7 @@ src/
 
 ## Extending for agents
 
-query-api exposes MCP at `POST /query/mcp` (no `/v1`). Agents can discover tools via the MCP catalog; this starter focuses on **human-facing static UI** that calls the REST API from the browser.
+[open-data-layer](https://github.com/Waiviogit/open-data-layer) `query-api` exposes MCP at `POST /query/mcp` (no `/v1`). Agents can discover tools via the MCP catalog; this starter focuses on **human-facing static UI** that calls the REST API from the browser.
 
 To add features:
 

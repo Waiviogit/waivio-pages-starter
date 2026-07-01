@@ -6,9 +6,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # waivio-pages-starter — agent rules
 
-Standalone Next.js starter (not part of the opden-data-layer Nx monorepo). Purpose: let anyone fork this repo and ship a **static GitHub Pages site** that reads data from **query-api** and signs/broadcasts Hive operations via **Hive Keychain** — without auth-api, without a backend, without a Node server at runtime.
+Standalone Next.js starter (not part of the [open-data-layer](https://github.com/Waiviogit/open-data-layer) Nx monorepo). Purpose: let anyone fork this repo and ship a **static GitHub Pages site** that reads data from **query-api** and signs/broadcasts Hive operations via **Hive Keychain** — without auth-api, without a backend, without a Node server at runtime.
 
-Reference implementation patterns come from `opden-data-layer/apps/web`, adapted for browser-only static export.
+Reference implementation patterns come from [open-data-layer `apps/web`](https://github.com/Waiviogit/open-data-layer/tree/main/apps/web), adapted for browser-only static export.
 
 ## What this app is for
 
@@ -78,7 +78,7 @@ Document new keys in `.env.example`.
 - Types: hand-maintained Zod schemas in `src/modules/query-api/domain/` (not codegen from OpenAPI)
 - JWT-only endpoints (drafts, advanced/generated wallet reports): **out of scope** unless caller supplies `Authorization` explicitly
 
-query-api must allow browser CORS including **`X-Viewer`** in `allowedHeaders`.
+query-api must allow browser CORS including **`X-Viewer`** in `allowedHeaders` (see [open-data-layer `apps/query-api`](https://github.com/Waiviogit/open-data-layer/tree/main/apps/query-api)).
 
 ## Wallet / Keychain (no auth-api)
 
@@ -112,7 +112,7 @@ src/
   styles/              # theme.css design tokens
 ```
 
-**Module rules** (ported from apps/web):
+**Module rules** (ported from [open-data-layer `apps/web`](https://github.com/Waiviogit/open-data-layer/tree/main/apps/web)):
 
 - `domain/` — types, Zod schemas, pure logic
 - `application/` — query functions, mappers
@@ -166,7 +166,7 @@ pnpm build    # must produce out/ with static routes only
 
 Confirm no new `'use server'`, `app/api/`, or `middleware` files.
 
-## What not to port from apps/web
+## What not to port from [open-data-layer `apps/web`](https://github.com/Waiviogit/open-data-layer/tree/main/apps/web)
 
 - Server-side `queryApiFetch` + Next cache tags
 - BFF `/api/*` routes and cookie JWT auth
@@ -180,4 +180,4 @@ Confirm no new `'use server'`, `app/api/`, or `middleware` files.
 - Add packages with `pnpm add` at project root only
 - Do not add `axios` — use `fetch`
 - Do not add auth-api client or hivesigner unless explicitly extending beyond Keychain-only scope
-- Keep `hive-broadcast` self-contained under `modules/wallet/hive-broadcast/` (no monorepo `@opden-data-layer/*` imports)
+- Keep `hive-broadcast` self-contained under `modules/wallet/hive-broadcast/` (no `@opden-data-layer/*` workspace imports from [open-data-layer](https://github.com/Waiviogit/open-data-layer); copy/adapt sources when syncing)
